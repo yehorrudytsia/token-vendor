@@ -8,7 +8,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const chainId = await getChainId();
 
   // You might need the previously deployed yourToken:
-  const yourToken = await ethers.getContract("YourToken", deployer);
+  const yourToken = await ethers.getContract("Token", deployer);
 
   // Todo: deploy the vendor
   // await deploy("Vendor", {
