@@ -7,10 +7,8 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
-  // You might need the previously deployed yourToken:
   const token = await ethers.getContract("Token", deployer);
 
-  // Todo: deploy the vendor
   await deploy("Vendor", {
      from: deployer,
      args: [token.address],
@@ -22,10 +20,11 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   // Todo: transfer the tokens to the vendor
   // console.log("\n 🏵  Sending all 1000 tokens to the vendor...\n");
   //
-  // const transferTransaction = await yourToken.transfer(
-  //   vendor.address,
-  //   ethers.utils.parseEther("1000")
-  // );
+  await token.transfer( vendor.address, ethers.utils.parseEther("1000") );
+ // const transferTransaction = await token.transfer(
+ //    vendor.address,
+ //    ethers.utils.parseEther("1000")
+ // );
 
   //console.log("\n    ✅ confirming...\n");
   //await sleep(5000); // wait 5 seconds for transaction to propagate
