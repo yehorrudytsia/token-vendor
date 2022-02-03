@@ -8,16 +8,16 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const chainId = await getChainId();
 
   // You might need the previously deployed yourToken:
-  const yourToken = await ethers.getContract("Token", deployer);
+  const token = await ethers.getContract("Token", deployer);
 
   // Todo: deploy the vendor
-  // await deploy("Vendor", {
-  //   from: deployer,
-  //   args: [yourToken.address], // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
-  //   log: true,
-  // });
-  //
-  // const vendor = await ethers.getContract("Vendor", deployer);
+  await deploy("Vendor", {
+     from: deployer,
+     args: [token.address],
+     log: true,
+   });
+
+  const vendor = await ethers.getContract("Vendor", deployer);
 
   // Todo: transfer the tokens to the vendor
   // console.log("\n 🏵  Sending all 1000 tokens to the vendor...\n");
