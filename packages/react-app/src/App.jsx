@@ -546,7 +546,7 @@ function App(props) {
               type={"primary"}
               onClick={() => {
                 tx(
-                  writeContracts.Token.transfer(tokenSendToAddress, ethers.utils.parseEther("" + tokenSendAmount)),
+                  writeContracts.Token.transfer(tokenSendToAddress, tokenSendAmount),
                 );
               }}
             >
