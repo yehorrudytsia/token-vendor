@@ -265,11 +265,15 @@ function App(props) {
   ]);
   console.log("🤏 vendorApproval",vendorApproval)
 
-  const vendorTokenBalance = useContractReader(readContracts, "Token", "balanceOf", [vendorAddress]);
-  console.log("🏵 vendorTokenBalance:", vendorTokenBalance ? ethers.utils.formatEther(vendorTokenBalance) : "...");
+  let vendorTokenBalanceTx = useContractReader(readContracts, "Token", "balanceOf", [vendorAddress]);
+  const vendorTokenBalance = vendorTokenBalanceTx ? vendorTokenBalanceTx.toString() : 0;
+  console.log("🏵 vendorTokenBalance:", vendorTokenBalance);
 
-  const TokenBalance = useContractReader(readContracts, "Token", "balanceOf", [address]);
-  console.log("🏵 TokenBalance:", TokenBalance ? ethers.utils.formatEther(TokenBalance) : "...");
+  let TokenBalanceTx = useContractReader(readContracts, "Token", "balanceOf", [address]);
+  const TokenBalance = TokenBalanceTx ? TokenBalanceTx.toString() : 0;
+  console.log("🏵 TokenBalance:", TokenBalance);
+
+
 
   const tokensPerEth = useContractReader(readContracts, "Vendor", "tokensPerEth");
   console.log("🏦 tokensPerEth:", tokensPerEth ? tokensPerEth.toString() : "...");
@@ -702,7 +706,7 @@ function App(props) {
 
             <div style={{ padding: 8, marginTop: 32 }}>
               <div>Vendor Token Balance:</div>
-              <Balance balance={vendorTokenBalance} fontSize={64} />
+              <Balance balance={vendorTokenBalanceTx} fontSize={64} />
             </div>
 
             <div style={{ padding: 8 }}>
