@@ -20,7 +20,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   // Todo: transfer the tokens to the vendor
   // console.log("\n 🏵  Sending all 1000 tokens to the vendor...\n");
   //
-  await token.transfer( vendor.address, ethers.utils.parseEther("1000") );
+  await token.transfer( vendor.address, 10 ** 6 );
  // const transferTransaction = await token.transfer(
  //    vendor.address,
  //    ethers.utils.parseEther("1000")

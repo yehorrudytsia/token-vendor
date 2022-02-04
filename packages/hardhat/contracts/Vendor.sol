@@ -7,9 +7,9 @@ import "./Token.sol";
 
 contract Vendor is Ownable {
 
-  uint256 public constant tokensPerEth = 1000;
+  uint256 public constant tokensPerEth = 100;
 
-  //event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
+  event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
 
   Token public token;
 
@@ -19,8 +19,14 @@ contract Vendor is Ownable {
 
   function buyTokens() external payable {
     require(msg.value > 0, "No ETH was sent.");
-    uint256 tokensAmount = msg.value * tokensPerEth / (10 ** 18);
-    token.transfer(msg.sender, tokensAmount);
+    console.log(msg.value);
+    uint256 amountOfETH = msg.value / (10 ** 18);
+    uint256 amountOfTokens = msg.value * tokensPerEth / (10**18);
+    token.transfer(msg.sender, amountOfTokens);
+    console.log(amountOfETH);
+    console.log(amountOfTokens);
+
+    emit BuyTokens(msg.sender, amountOfETH, amountOfTokens); 
   }
 
   // ToDo: create a payable buyTokens() function:
