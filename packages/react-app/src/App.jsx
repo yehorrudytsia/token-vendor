@@ -31,6 +31,7 @@ import {
   Header,
   Ramp,
   ThemeSwitch,
+  TokensBalance,
 } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
@@ -266,7 +267,7 @@ function App(props) {
   console.log("🤏 vendorApproval",vendorApproval)
 
   let vendorTokenBalanceTx = useContractReader(readContracts, "Token", "balanceOf", [vendorAddress]);
-  const vendorTokenBalance = vendorTokenBalanceTx ? vendorTokenBalanceTx.toString() : 0;
+  const vendorTokenBalance = vendorTokenBalanceTx ? vendorTokenBalanceTx.toString() : 10;
   console.log("🏵 vendorTokenBalance:", vendorTokenBalance);
 
   let TokenBalanceTx = useContractReader(readContracts, "Token", "balanceOf", [address]);
@@ -591,7 +592,7 @@ function App(props) {
             <div style={{ padding: 8, marginTop: 32, width: 300, margin: "auto" }}>
               <Card title="Your Tokens" extra={<a href="#">code</a>}>
                 <div style={{ padding: 8 }}>
-                  <Balance balance={TokenBalance} fontSize={64} />
+                  <TokensBalance balance={TokenBalance} fontSize={64} />
                 </div>
               </Card>
             </div>
@@ -706,7 +707,7 @@ function App(props) {
 
             <div style={{ padding: 8, marginTop: 32 }}>
               <div>Vendor Token Balance:</div>
-              <Balance balance={vendorTokenBalanceTx} fontSize={64} />
+              <TokensBalance balance={vendorTokenBalance} fontSize={64} />
             </div>
 
             <div style={{ padding: 8 }}>
