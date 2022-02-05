@@ -723,9 +723,9 @@ function App(props) {
                   return (
                     <List.Item key={item.blockNumber + item.blockHash}>
                       <Address value={item.args[0]} ensProvider={mainnetProvider} fontSize={16} /> paid
-                      <Balance balance={item.args[1]} />
+                      <Balance balance={(item.args[1])} />
                       ETH to get
-                      <Balance balance={item.args[2]} />
+                      <TokensBalance balance={(item.args[2]).toString()} />
                       Tokens
                     </List.Item>
                   );

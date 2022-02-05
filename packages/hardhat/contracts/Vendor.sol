@@ -9,7 +9,7 @@ contract Vendor is Ownable {
 
   uint256 public constant tokensPerEth = 100;
 
-  event BuyTokens(address buyer, uint256 amountOfETH, uint256 amountOfTokens);
+  event BuyTokens(address buyer, uint256 amountOfWei, uint256 amountOfTokens);
 
   Token public token;
 
@@ -26,7 +26,7 @@ contract Vendor is Ownable {
     console.log(amountOfETH);
     console.log(amountOfTokens);
 
-    emit BuyTokens(msg.sender, amountOfETH, amountOfTokens); 
+    emit BuyTokens(msg.sender, msg.value, amountOfTokens); 
   }
 
   // ToDo: create a payable buyTokens() function:
