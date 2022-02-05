@@ -19,12 +19,9 @@ contract Vendor is Ownable {
 
   function buyTokens() external payable {
     require(msg.value > 0, "No ETH was sent.");
-    console.log(msg.value);
     uint256 amountOfETH = msg.value / (10 ** 18);
     uint256 amountOfTokens = msg.value * tokensPerEth / (10**18);
     token.transfer(msg.sender, amountOfTokens);
-    console.log(amountOfETH);
-    console.log(amountOfTokens);
 
     emit BuyTokens(msg.sender, msg.value, amountOfTokens); 
   }
