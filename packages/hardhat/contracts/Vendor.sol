@@ -26,10 +26,12 @@ contract Vendor is Ownable {
     emit BuyTokens(msg.sender, msg.value, amountOfTokens); 
   }
 
-  // ToDo: create a payable buyTokens() function:
-
-  // ToDo: create a withdraw() function that lets the owner withdraw ETH
-
-  // ToDo: create a sellTokens() function:
-
+  function sellTokens(uint256 amount) external {
+    require(amount > 0, "Amount of tokens for selling should be greater than 0.");
+    uint256 weiToSend = amount * (10 ** 18) / tokensPerEth;
+    bool sent = token.transferFrom(msg.sender, address(this), amount);
+    require(sent, "Failed to sell tokens.");
+    (bool sent,) = msg.sender.call{ value: weiToSend }("");
+    require(sent, "Failed to sent ether.");
+  }
 }
