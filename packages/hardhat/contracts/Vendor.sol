@@ -10,6 +10,7 @@ contract Vendor is Ownable {
   uint256 public constant tokensPerEth = 100;
 
   event BuyTokens(address buyer, uint256 amountOfWei, uint256 amountOfTokens);
+  event SellTokens(address seller, uint256 amount);
 
   Token public token;
 
@@ -19,7 +20,6 @@ contract Vendor is Ownable {
 
   function buyTokens() external payable {
     require(msg.value > 0, "No ETH was sent.");
-    uint256 amountOfETH = msg.value / (10 ** 18);
     uint256 amountOfTokens = msg.value * tokensPerEth / (10**18);
     token.transfer(msg.sender, amountOfTokens);
 
@@ -31,7 +31,9 @@ contract Vendor is Ownable {
     uint256 weiToSend = amount * (10 ** 18) / tokensPerEth;
     bool sent = token.transferFrom(msg.sender, address(this), amount);
     require(sent, "Failed to sell tokens.");
-    (bool sent,) = msg.sender.call{ value: weiToSend }("");
+    (sent,) = msg.sender.call{ value: weiToSend }("");
     require(sent, "Failed to sent ether.");
+
+    emit SellTokens(msg.sender, amount);
   }
 }
