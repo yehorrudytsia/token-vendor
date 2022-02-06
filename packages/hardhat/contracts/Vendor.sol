@@ -36,4 +36,10 @@ contract Vendor is Ownable {
 
     emit SellTokens(msg.sender, amount);
   }
+
+  // withdrawal of all the Ether in the contract by the Owner
+  function withdraw() external onlyOwner {
+    (bool sent,) = msg.sender.call{ value: address(this).balance }("");
+    require(sent, "Failed to withdraw Ether.");
+  }
 }
