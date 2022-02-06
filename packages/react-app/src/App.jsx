@@ -495,14 +495,15 @@ function App(props) {
   const [tokenSellAmount, setTokenSellAmount] = useState();
   const [isSellAmountApproved, setIsSellAmountApproved] = useState();
 
+  
   useEffect(()=>{
     console.log("tokenSellAmount",tokenSellAmount)
-    const tokenSellAmountBN = tokenSellAmount && ethers.utils.parseEther("" + tokenSellAmount)
+    const tokenSellAmountBN = tokenSellAmount
     console.log("tokenSellAmountBN",tokenSellAmountBN)
     setIsSellAmountApproved(vendorApproval && tokenSellAmount && vendorApproval.gte(tokenSellAmountBN))
   },[tokenSellAmount, readContracts])
   console.log("isSellAmountApproved",isSellAmountApproved)
-
+  
   const ethCostToPurchaseTokens =
     tokenBuyAmount && tokensPerEth && ethers.utils.parseEther("" + tokenBuyAmount / parseFloat(tokensPerEth));
   console.log("ethCostToPurchaseTokens:", ethCostToPurchaseTokens);
@@ -664,7 +665,7 @@ function App(props) {
                       loading={buying}
                       onClick={async () => {
                         setBuying(true);
-                        await tx(writeContracts.Vendor.sellTokens(tokenSellAmount && ethers.utils.parseEther(tokenSellAmount)));
+                        await tx(writeContracts.Vendor.sellTokens(tokenSellAmount));
                         setBuying(false);
                         setTokenSellAmount("");
                       }}
@@ -679,7 +680,7 @@ function App(props) {
                       loading={buying}
                       onClick={async () => {
                         setBuying(true);
-                        await tx(writeContracts.Token.approve(readContracts.Vendor.address, tokenSellAmount && ethers.utils.parseEther(tokenSellAmount)));
+                        await tx(writeContracts.Token.approve(readContracts.Vendor.address, tokenSellAmount));
                         setBuying(false);
                         let resetAmount = tokenSellAmount
                         setTokenSellAmount("");
